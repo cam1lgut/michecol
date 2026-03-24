@@ -1,6 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const API_BASE_URL = window.MICHECOL_API_BASE_URL || '';
-    const ORDERS_ENDPOINT = `${API_BASE_URL}/api/pedidos`;
+    const SUPABASE_URL = window.MICHECOL_SUPABASE_URL || '';
+    const SUPABASE_ANON_KEY = window.MICHECOL_SUPABASE_ANON_KEY || '';
+    const supabaseFactory = window.supabase?.createClient;
+    const supabaseClient = (SUPABASE_URL && SUPABASE_ANON_KEY && supabaseFactory)
+        ? supabaseFactory(SUPABASE_URL, SUPABASE_ANON_KEY)
+        : null;
 
     // 1. Preloader
     const preloader = document.getElementById('preloader');
@@ -167,17 +171,37 @@ document.addEventListener('DOMContentLoaded', () => {
             const formData = new FormData(orderForm);
             const payload = Object.fromEntries(formData.entries());
 
-            try {
-                const response = await fetch(ORDERS_ENDPOINT, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(payload)
-                });
+            const selectedSize = payload.tamano || 'pequeno';
+            const priceBySize = {
+                pequeno: 5000,
+                mediano: 6000,
+                grande: 7000
+            };
+            const normalizedPrice = priceBySize[selectedSize] || 5000;
 
-                if (!response.ok) {
-                    throw new Error('No se pudo guardar el pedido.');
+            const insertPayload = {
+                cliente_nombre: String(payload.cliente_nombre || '').trim(),
+                cliente_telefono: String(payload.cliente_telefono || '').trim(),
+                direccion: String(payload.direccion || '').trim(),
+                producto: String(payload.producto || '').trim(),
+                tamano: selectedSize,
+                precio: normalizedPrice,
+                metodo_pago: 'efectivo',
+                estado: 'pendiente',
+                notas: String(payload.notas || '').trim() || null
+            };
+
+            try {
+                if (!supabaseClient) {
+                    throw new Error('Cliente de Supabase no configurado');
+                }
+
+                const { error } = await supabaseClient
+                    .from('pedidos')
+                    .insert([insertPayload]);
+
+                if (error) {
+                    throw new Error('No se pudo guardar el pedido');
                 }
 
                 setStatus('Pedido recibido con exito. Te contactaremos pronto.', 'success');

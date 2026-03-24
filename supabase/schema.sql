@@ -7,9 +7,35 @@ create table if not exists public.pedidos (
   producto text not null,
   tamano text not null check (tamano in ('pequeno', 'mediano', 'grande')),
   precio integer not null check (precio in (5000, 6000, 7000)),
+  constraint pedidos_size_price_check check (
+    (tamano = 'pequeno' and precio = 5000)
+    or (tamano = 'mediano' and precio = 6000)
+    or (tamano = 'grande' and precio = 7000)
+  ),
   metodo_pago text not null default 'efectivo',
   estado text not null default 'pendiente',
   notas text
 );
 
 create index if not exists pedidos_created_at_idx on public.pedidos (created_at desc);
+
+alter table public.pedidos enable row level security;
+
+drop policy if exists pedidos_insert_anon on public.pedidos;
+create policy pedidos_insert_anon
+on public.pedidos
+for insert
+to anon
+with check (
+  metodo_pago = 'efectivo'
+  and estado = 'pendiente'
+  and (
+    (tamano = 'pequeno' and precio = 5000)
+    or (tamano = 'mediano' and precio = 6000)
+    or (tamano = 'grande' and precio = 7000)
+  )
+);
+
+-- =============================================
+-- TABLA PEDIDOS CREADA CORRECTAMENTE
+-- =============================================
