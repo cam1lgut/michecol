@@ -24,6 +24,7 @@ alter table public.pedidos enable row level security;
 grant usage on schema public to anon;
 grant insert on table public.pedidos to anon;
 grant select on table public.pedidos to anon;
+grant update (estado) on table public.pedidos to anon;
 grant usage, select on sequence public.pedidos_id_seq to anon;
 
 drop policy if exists pedidos_insert_anon on public.pedidos;
@@ -48,6 +49,14 @@ for select
 to anon
 using (true);
 
+drop policy if exists pedidos_update_estado_anon on public.pedidos;
+create policy pedidos_update_estado_anon
+on public.pedidos
+for update
+to anon
+using (estado = 'pendiente')
+with check (estado = 'entregado');
+
 -- =============================================
--- TABLA PEDIDOS CREADA CORRECTAMENTE
+-- TABLA PEDIDO
 -- =============================================

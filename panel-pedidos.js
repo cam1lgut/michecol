@@ -1,7 +1,19 @@
 document.addEventListener('DOMContentLoaded', () => {
+  const PANEL_USER = 'admin';
+  const PANEL_PASS = 'michecol';
+  const AUTH_KEY = 'michecol_panel_auth';
+
   const SUPABASE_URL = window.MICHECOL_SUPABASE_URL || '';
   const SUPABASE_ANON_KEY = window.MICHECOL_SUPABASE_ANON_KEY || '';
   const createClient = window.supabase?.createClient;
+
+  const panelLogin = document.getElementById('panel-login');
+  const panelApp = document.getElementById('panel-app');
+  const loginForm = document.getElementById('panel-login-form');
+  const loginUser = document.getElementById('panel-user');
+  const loginPass = document.getElementById('panel-pass');
+  const loginError = document.getElementById('panel-login-error');
+  const logoutButton = document.getElementById('logout-btn');
 
   const ordersBody = document.getElementById('orders-body');
   const ordersError = document.getElementById('orders-error');
@@ -36,14 +48,30 @@ document.addEventListener('DOMContentLoaded', () => {
     .replaceAll('"', '&quot;')
     .replaceAll("'", '&#039;');
 
+  const isAuthenticated = () => sessionStorage.getItem(AUTH_KEY) === 'ok';
+
+  const showPanel = () => {
+    panelLogin.classList.add('hidden');
+    panelApp.classList.remove('hidden');
+  };
+
+  const showLogin = () => {
+    panelApp.classList.add('hidden');
+    panelLogin.classList.remove('hidden');
+  };
+
   const renderRows = (orders) => {
     if (!orders.length) {
-      ordersBody.innerHTML = '<tr><td colspan="10" class="empty-row">Aun no hay pedidos.</td></tr>';
+      ordersBody.innerHTML = '<tr><td colspan="11" class="empty-row">Aun no hay pedidos.</td></tr>';
       return;
     }
 
     ordersBody.innerHTML = orders.map((order) => {
       const stateClass = escapeHtml(order.estado || 'pendiente');
+      const isDelivered = (order.estado || '').toLowerCase() === 'entregado';
+      const actionCell = isDelivered
+        ? '<span class="action-btn done">Entregado</span>'
+        : `<button type="button" class="action-btn deliver-btn" data-id="${order.id}">Marcar entregado</button>`;
       return `
         <tr>
           <td>${formatHour(order.created_at)}</td>
@@ -55,6 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <td>${escapeHtml(order.metodo_pago)}</td>
           <td>$${formatter.format(order.precio || 0)} COP</td>
           <td><span class="state-chip ${stateClass}">${escapeHtml(order.estado || 'pendiente')}</span></td>
+          <td>${actionCell}</td>
           <td>${escapeHtml(order.notas || '-')}</td>
         </tr>
       `;
@@ -81,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const { data, error } = await supabase
       .from('pedidos')
-      .select('created_at, cliente_nombre, cliente_telefono, direccion, producto, tamano, metodo_pago, precio, estado, notas')
+      .select('id, created_at, cliente_nombre, cliente_telefono, direccion, producto, tamano, metodo_pago, precio, estado, notas')
       .order('created_at', { ascending: false })
       .limit(200);
 
@@ -95,8 +124,71 @@ document.addEventListener('DOMContentLoaded', () => {
     lastSync.textContent = `Ultima actualizacion: ${new Date().toLocaleTimeString('es-CO')}`;
   };
 
+  const markAsDelivered = async (orderId) => {
+    ordersError.textContent = '';
+
+    const { error } = await supabase
+      .from('pedidos')
+      .update({ estado: 'entregado' })
+      .eq('id', Number(orderId))
+      .eq('estado', 'pendiente');
+
+    if (error) {
+      ordersError.textContent = `No se pudo actualizar estado: ${error.message}`;
+      return;
+    }
+
+    await loadOrders();
+  };
+
+  loginForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    loginError.textContent = '';
+
+    const userValue = String(loginUser.value || '').trim();
+    const passValue = String(loginPass.value || '').trim();
+
+    if (userValue === PANEL_USER && passValue === PANEL_PASS) {
+      sessionStorage.setItem(AUTH_KEY, 'ok');
+      showPanel();
+      loadOrders();
+      return;
+    }
+
+    loginError.textContent = 'Usuario o clave incorrectos.';
+  });
+
+  logoutButton.addEventListener('click', () => {
+    sessionStorage.removeItem(AUTH_KEY);
+    showLogin();
+  });
+
+  ordersBody.addEventListener('click', (event) => {
+    const button = event.target.closest('.deliver-btn');
+    if (!button) {
+      return;
+    }
+
+    const orderId = button.getAttribute('data-id');
+    if (!orderId) {
+      return;
+    }
+
+    markAsDelivered(orderId);
+  });
+
   refreshButton.addEventListener('click', loadOrders);
 
-  loadOrders();
-  setInterval(loadOrders, 15000);
+  if (isAuthenticated()) {
+    showPanel();
+    loadOrders();
+  } else {
+    showLogin();
+  }
+
+  setInterval(() => {
+    if (isAuthenticated()) {
+      loadOrders();
+    }
+  }, 15000);
 });

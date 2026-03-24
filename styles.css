@@ -685,6 +685,24 @@ img {
     font-size: 0.9rem;
 }
 
+.panel-miche-btn {
+    display: inline-block;
+    margin-top: 12px;
+    border-radius: var(--radius-full);
+    padding: 0.52rem 0.9rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: #092a20;
+    background: linear-gradient(135deg, #8bf5b6, #4ade80);
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.panel-miche-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.35);
+}
+
 /* ==========================================================================
    FLOATING BUTTON
    ========================================================================== */
