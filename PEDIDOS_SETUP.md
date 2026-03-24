@@ -11,6 +11,13 @@
 3. Alli veras todos los pedidos que entren desde la pagina.
 4. Puedes ordenar por `created_at` para ver los mas recientes.
 
+## 2.1) Panel web para el equipo (sin login)
+1. Abre `pedidos.html` en tu sitio publicado.
+2. El panel se actualiza cada 15 segundos.
+3. Muestra pedidos, estado y resumen del dia.
+
+Atencion: este panel es publico para quien tenga el enlace.
+
 ## 3) Configuracion del frontend
 El frontend usa la clave publica de Supabase (`sb_publishable`) y envia el pedido directo a la tabla con RLS.
 

@@ -23,6 +23,7 @@ alter table public.pedidos enable row level security;
 
 grant usage on schema public to anon;
 grant insert on table public.pedidos to anon;
+grant select on table public.pedidos to anon;
 grant usage, select on sequence public.pedidos_id_seq to anon;
 
 drop policy if exists pedidos_insert_anon on public.pedidos;
@@ -39,6 +40,13 @@ with check (
     or (tamano = 'grande' and precio = 7000)
   )
 );
+
+drop policy if exists pedidos_select_anon on public.pedidos;
+create policy pedidos_select_anon
+on public.pedidos
+for select
+to anon
+using (true);
 
 -- =============================================
 -- TABLA PEDIDOS CREADA CORRECTAMENTE

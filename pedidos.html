@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Pedidos | Michecol</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./panel-pedidos.css">
+</head>
+<body>
+  <header class="panel-header">
+    <div>
+      <p class="eyebrow">Michecol</p>
+      <h1>Panel de Pedidos</h1>
+      <p class="subtitle">Vista compartida para el equipo. Se actualiza sola cada 15 segundos.</p>
+    </div>
+    <button id="refresh-btn" class="refresh-btn" type="button">Actualizar</button>
+  </header>
+
+  <main class="panel-main">
+    <section class="stats-grid" id="stats-grid">
+      <article class="stat-card">
+        <p>Total hoy</p>
+        <strong id="stat-total">0</strong>
+      </article>
+      <article class="stat-card">
+        <p>Pendientes</p>
+        <strong id="stat-pending">0</strong>
+      </article>
+      <article class="stat-card">
+        <p>Entregados</p>
+        <strong id="stat-delivered">0</strong>
+      </article>
+      <article class="stat-card">
+        <p>Ventas hoy</p>
+        <strong id="stat-sales">$0</strong>
+      </article>
+    </section>
+
+    <section class="table-card">
+      <div class="table-head">
+        <h2>Pedidos recientes</h2>
+        <p id="last-sync">Sin sincronizar</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Hora</th>
+              <th>Cliente</th>
+              <th>Teléfono</th>
+              <th>Dirección</th>
+              <th>Producto</th>
+              <th>Tamaño</th>
+              <th>Pago</th>
+              <th>Precio</th>
+              <th>Estado</th>
+              <th>Notas</th>
+            </tr>
+          </thead>
+          <tbody id="orders-body">
+            <tr>
+              <td colspan="10" class="empty-row">Cargando pedidos...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p id="orders-error" class="orders-error" aria-live="polite"></p>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    window.MICHECOL_SUPABASE_URL = 'https://savarfzkrzovakcxmwgg.supabase.co';
+    window.MICHECOL_SUPABASE_ANON_KEY = 'sb_publishable__qYslXL1eVbjhl1v7qputA_1KCHGOkw';
+  </script>
+  <script src="./panel-pedidos.js"></script>
+</body>
+</html>
