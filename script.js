@@ -98,6 +98,22 @@ document.addEventListener('DOMContentLoaded', () => {
     // 4. Boton flotante PQR
     const pqrButton = document.getElementById('pqr-float');
     const pqrCard = document.getElementById('pqr-card');
+    const pqrForm = document.getElementById('pqr-form');
+    const pqrMessage = document.getElementById('pqr-message');
+    const pqrCounter = document.getElementById('pqr-counter');
+    const pqrStatus = document.getElementById('pqr-status');
+
+    const setPqrStatus = (message, statusClass = '') => {
+        if (!pqrStatus) {
+            return;
+        }
+
+        pqrStatus.textContent = message;
+        pqrStatus.classList.remove('success', 'error');
+        if (statusClass) {
+            pqrStatus.classList.add(statusClass);
+        }
+    };
 
     if (pqrButton && pqrCard) {
         pqrButton.addEventListener('click', () => {
@@ -110,6 +126,66 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!clickInsidePqr) {
                 pqrCard.classList.remove('active');
                 pqrButton.setAttribute('aria-expanded', 'false');
+            }
+        });
+    }
+
+    if (pqrMessage && pqrCounter) {
+        const updateCounter = () => {
+            const length = String(pqrMessage.value || '').length;
+            pqrCounter.textContent = `${length} / 500`;
+        };
+
+        pqrMessage.addEventListener('input', updateCounter);
+        updateCounter();
+    }
+
+    if (pqrForm) {
+        pqrForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            if (!supabaseClient) {
+                setPqrStatus('No se pudo enviar PQR por configuracion de Supabase.', 'error');
+                return;
+            }
+
+            const formData = new FormData(pqrForm);
+            const nombre = String(formData.get('nombre') || '').trim();
+            const mensaje = String(formData.get('mensaje') || '').trim();
+
+            if (!mensaje || mensaje.length > 500) {
+                setPqrStatus('El mensaje debe tener entre 1 y 500 caracteres.', 'error');
+                return;
+            }
+
+            const submitButton = pqrForm.querySelector('button[type="submit"]');
+            submitButton.disabled = true;
+            setPqrStatus('Enviando PQR...');
+
+            try {
+                const { error } = await supabaseClient
+                    .from('pqr')
+                    .insert([
+                        {
+                            nombre,
+                            mensaje
+                        }
+                    ]);
+
+                if (error) {
+                    throw new Error(error.message || 'No se pudo enviar PQR');
+                }
+
+                pqrForm.reset();
+                if (pqrMessage && pqrCounter) {
+                    pqrCounter.textContent = '0 / 500';
+                }
+                setPqrStatus('PQR enviado con exito. Gracias por escribirnos.', 'success');
+            } catch (error) {
+                const errorMessage = error?.message ? ` (${error.message})` : '';
+                setPqrStatus(`No se pudo enviar tu PQR.${errorMessage}`, 'error');
+            } finally {
+                submitButton.disabled = false;
             }
         });
     }

@@ -17,6 +17,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const ordersBody = document.getElementById('orders-body');
   const ordersError = document.getElementById('orders-error');
+  const pqrBody = document.getElementById('pqr-body');
+  const pqrError = document.getElementById('pqr-error');
   const refreshButton = document.getElementById('refresh-btn');
   const lastSync = document.getElementById('last-sync');
 
@@ -126,6 +128,43 @@ document.addEventListener('DOMContentLoaded', () => {
     lastSync.textContent = `Ultima actualizacion: ${new Date().toLocaleTimeString('es-CO')}`;
   };
 
+  const renderPqrRows = (pqrItems) => {
+    if (!pqrItems.length) {
+      pqrBody.innerHTML = '<tr><td colspan="3" class="empty-row">Aun no hay PQR.</td></tr>';
+      return;
+    }
+
+    pqrBody.innerHTML = pqrItems.map((item) => `
+      <tr>
+        <td>${formatHour(item.created_at)}</td>
+        <td>${escapeHtml(item.nombre || 'Anonimo')}</td>
+        <td>${escapeHtml(item.mensaje || '')}</td>
+      </tr>
+    `).join('');
+  };
+
+  const loadPqr = async () => {
+    pqrError.textContent = '';
+
+    if (!supabase) {
+      pqrError.textContent = 'Falta configurar Supabase en esta pagina.';
+      return;
+    }
+
+    const { data, error } = await supabase
+      .from('pqr')
+      .select('created_at, nombre, mensaje')
+      .order('created_at', { ascending: false })
+      .limit(200);
+
+    if (error) {
+      pqrError.textContent = `No se pudieron cargar PQR: ${error.message}`;
+      return;
+    }
+
+    renderPqrRows(data || []);
+  };
+
   const markAsDelivered = async (orderId) => {
     ordersError.textContent = '';
 
@@ -181,9 +220,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   refreshButton.addEventListener('click', loadOrders);
 
+  refreshButton.addEventListener('click', loadPqr);
+
   if (isAuthenticated()) {
     showPanel();
     loadOrders();
+    loadPqr();
   } else {
     showLogin();
   }
@@ -191,6 +233,7 @@ document.addEventListener('DOMContentLoaded', () => {
   setInterval(() => {
     if (isAuthenticated()) {
       loadOrders();
+      loadPqr();
     }
   }, 15000);
 });

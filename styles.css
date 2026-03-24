@@ -779,6 +779,86 @@ img {
     margin: 0;
 }
 
+.pqr-form {
+    display: grid;
+    gap: 0.4rem;
+}
+
+.pqr-form label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #7f1d1d;
+}
+
+.pqr-form input,
+.pqr-form textarea {
+    width: 100%;
+    border: 1px solid #fca5a5;
+    border-radius: 10px;
+    padding: 0.55rem 0.65rem;
+    font-family: inherit;
+    font-size: 0.88rem;
+    color: #3f3f46;
+    background: #fff;
+}
+
+.pqr-form input:focus-visible,
+.pqr-form textarea:focus-visible {
+    outline: none;
+    border-color: #ef4444;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
+}
+
+.pqr-counter {
+    margin: 0;
+    text-align: right;
+    font-size: 0.75rem;
+    color: #7f1d1d;
+}
+
+.pqr-send-btn {
+    border: none;
+    border-radius: var(--radius-full);
+    background: #dc2626;
+    color: #fff;
+    padding: 0.5rem 0.8rem;
+    font-size: 0.83rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.pqr-send-btn:hover {
+    background: #b91c1c;
+}
+
+.pqr-status {
+    margin: 0;
+    min-height: 1.1rem;
+    font-size: 0.78rem;
+}
+
+.pqr-status.success {
+    color: #166534;
+}
+
+.pqr-status.error {
+    color: #b91c1c;
+}
+
+.pqr-emails {
+    padding-top: 0.35rem;
+    border-top: 1px solid #fecaca;
+    display: grid;
+    gap: 0.3rem;
+}
+
+.pqr-subtitle {
+    margin: 0;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #991b1b;
+}
+
 .pqr-card a {
     color: #B91C1C;
     font-weight: 600;

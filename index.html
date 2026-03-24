@@ -221,10 +221,25 @@
         PQR
     </button>
 
-    <div id="pqr-card" class="pqr-card" role="dialog" aria-label="Correos de atencion PQR">
-        <p class="pqr-title">Correos de atencion</p>
-        <a href="mailto:sugerencias@michecol.app">sugerencias@michecol.app</a>
-        <a href="mailto:atencionalcliente@michecol.app">atencionalcliente@michecol.app</a>
+    <div id="pqr-card" class="pqr-card" role="dialog" aria-label="Formulario de atencion PQR">
+        <p class="pqr-title">Envianos tu PQR</p>
+        <form id="pqr-form" class="pqr-form">
+            <label for="pqr-name">Nombre</label>
+            <input id="pqr-name" name="nombre" type="text" maxlength="80" placeholder="Tu nombre" required>
+
+            <label for="pqr-message">Mensaje (max. 500 caracteres)</label>
+            <textarea id="pqr-message" name="mensaje" maxlength="500" rows="4" placeholder="Escribe tu PQR" required></textarea>
+            <p id="pqr-counter" class="pqr-counter">0 / 500</p>
+
+            <button type="submit" class="pqr-send-btn">Enviar PQR</button>
+            <p id="pqr-status" class="pqr-status" aria-live="polite"></p>
+        </form>
+
+        <div class="pqr-emails">
+            <p class="pqr-subtitle">Correos de atencion:</p>
+            <a href="mailto:sugerencias@michecol.app">sugerencias@michecol.app</a>
+            <a href="mailto:atencionalcliente@michecol.app">atencionalcliente@michecol.app</a>
+        </div>
     </div>
 
     <!-- Floating WhatsApp Button -->

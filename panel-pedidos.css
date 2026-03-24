@@ -171,6 +171,10 @@ body {
   border-radius: 14px;
 }
 
+.pqr-board {
+  margin-top: 14px;
+}
+
 .table-head {
   display: flex;
   justify-content: space-between;
