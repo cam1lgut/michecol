@@ -25,12 +25,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const statDelivered = document.getElementById('stat-delivered');
   const statSales = document.getElementById('stat-sales');
 
-  if (!createClient || !SUPABASE_URL || !SUPABASE_ANON_KEY) {
-    ordersError.textContent = 'Falta configurar Supabase en esta pagina.';
-    return;
-  }
-
-  const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  const supabase = (createClient && SUPABASE_URL && SUPABASE_ANON_KEY)
+    ? createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+    : null;
   const formatter = new Intl.NumberFormat('es-CO');
 
   const formatHour = (isoString) => {
@@ -107,6 +104,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const loadOrders = async () => {
     ordersError.textContent = '';
+
+    if (!supabase) {
+      ordersError.textContent = 'Falta configurar Supabase en esta pagina.';
+      return;
+    }
 
     const { data, error } = await supabase
       .from('pedidos')
