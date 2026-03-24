@@ -21,6 +21,10 @@ create index if not exists pedidos_created_at_idx on public.pedidos (created_at 
 
 alter table public.pedidos enable row level security;
 
+grant usage on schema public to anon;
+grant insert on table public.pedidos to anon;
+grant usage, select on sequence public.pedidos_id_seq to anon;
+
 drop policy if exists pedidos_insert_anon on public.pedidos;
 create policy pedidos_insert_anon
 on public.pedidos

@@ -213,7 +213,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     closeOrderModal();
                 }, 900);
             } catch (error) {
-                setStatus('No se pudo enviar. Intenta de nuevo o usa WhatsApp.', 'error');
+                const errorMessage = error?.message ? ` (${error.message})` : '';
+                setStatus(`No se pudo enviar. Intenta de nuevo o usa WhatsApp.${errorMessage}`, 'error');
             } finally {
                 submitButton.disabled = false;
             }
