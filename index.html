@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Michecol - Las mejores micheladas de la ciudad</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome para íconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS Propio -->
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+
+    <!-- Preloader -->
+    <div id="preloader" class="preloader">
+        <div class="preloader-content">
+            <img src="./logo.png" alt="Michecol Logo" class="preloader-logo">
+            <div class="loader-spinner"></div>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <header class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo-link">
+                <img src="./logo.png" alt="Michecol" class="nav-logo">
+            </a>
+            <nav class="nav-menu" id="nav-menu">
+                <ul class="nav-list">
+                    <li><a href="#inicio" class="nav-link">Inicio</a></li>
+                    <li><a href="#productos" class="nav-link">Productos</a></li>
+                    <li><a href="#nosotros" class="nav-link">Nosotros</a></li>
+                    <li><a href="#contacto" class="nav-link">Contacto</a></li>
+                </ul>
+            </nav>
+            <div class="nav-toggle" id="nav-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="inicio" class="hero section">
+            <!-- Capa oscura en degradado para resaltar el texto -->
+            <div class="hero-overlay"></div>
+            
+            <div class="container hero-container">
+                <div class="hero-content">
+                    <div class="hero-badge">
+                        <span class="badge-text-white">LLEGÓ</span><br>
+                        <span class="badge-text-green">MICHECOL</span><br>
+                        <span class="badge-text-outline">A BARRANQUILLA</span>
+                    </div>
+                    <h1 class="hero-title">Las mejores <br><span class="highlight">micheladas</span> de la<br> ciudad</h1>
+                    <p class="hero-subtitle">Refresca tu día con nuestra mezcla premium de sabores auténticos. La experiencia Michecol que te mereces.</p>
+                    <a href="https://wa.me/573170677776" target="_blank" class="btn btn-primary btn-large">
+                        <i class="fab fa-whatsapp"></i> Pedir por WhatsApp
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sobre Nosotros -->
+        <section id="nosotros" class="about section">
+            <div class="container about-container">
+                <div class="about-text animate-on-scroll fade-right">
+                    <h2 class="section-title">Sobre <span class="highlight">Michecol</span></h2>
+                    <p>Nacimos con la pasión de llevar la tradición de la michelada al siguiente nivel. Utilizamos ingredientes seleccionados de primera calidad, cervezas muy frías y nuestra receta secreta de salsas y especias que te dejarán sin palabras.</p>
+                    <p>Cada Michecol es preparada al instante, garantizando frescura y un sabor explosivo. ¡No es solo una bebida, es una experiencia!</p>
+                </div>
+                <div class="about-cards animate-on-scroll fade-left">
+                    <div class="about-card glass-effect">
+                        <div class="card-icon"><i class="fas fa-pepper-hot"></i></div>
+                        <h3>Sabor Único</h3>
+                        <p>Mezcla perfecta de picante y cítrico.</p>
+                    </div>
+                    <div class="about-card glass-effect">
+                        <div class="card-icon"><i class="fas fa-medal"></i></div>
+                        <h3>Calidad Premium</h3>
+                        <p>Solo ingredientes frescos de alta calidad.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Productos -->
+        <section id="productos" class="products section bg-light">
+            <div class="container">
+                <div class="text-center animate-on-scroll fade-in">
+                    <h2 class="section-title">Nuestras <span class="highlight">Especialidades</span></h2>
+                    <p class="section-desc">Conoce nuestro irresistible menú preparado para calmar tu sed.</p>
+                </div>
+                
+                <div class="products-grid">
+                    <!-- Producto 1 -->
+                    <div class="product-card animate-on-scroll slide-up" style="--delay: 0.1s">
+                        <div class="product-img-box">
+                            <div class="placeholder-img"><i class="fas fa-beer-mug-empty"></i></div>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Michecol Clásica</h3>
+                            <p class="product-desc">Limón, sal, cerveza bien fría y nuestro escarchado especial.</p>
+                            <span class="product-price">$12.000</span>
+                            <a href="https://wa.me/573170677776" target="_blank" class="btn btn-outline">Pedir Ahora</a>
+                        </div>
+                    </div>
+
+                    <!-- Producto 2 -->
+                    <div class="product-card animate-on-scroll slide-up" style="--delay: 0.2s">
+                        <div class="product-img-box">
+                            <div class="placeholder-img"><i class="fas fa-wine-glass"></i></div>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Michecol Mango Biche</h3>
+                            <p class="product-desc">Trozos de mango biche, tajín, chamoy y cerveza premium.</p>
+                            <span class="product-price">$16.000</span>
+                            <a href="https://wa.me/573170677776" target="_blank" class="btn btn-outline">Pedir Ahora</a>
+                        </div>
+                    </div>
+
+                    <!-- Producto 3 -->
+                    <div class="product-card animate-on-scroll slide-up" style="--delay: 0.3s">
+                        <div class="product-img-box">
+                            <div class="placeholder-img"><i class="fas fa-fire"></i></div>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Michecol Fuego</h3>
+                            <p class="product-desc">Para los atrevidos. Salsa picante artesanal, limón y especias.</p>
+                            <span class="product-price">$15.000</span>
+                            <a href="https://wa.me/573170677776" target="_blank" class="btn btn-outline">Pedir Ahora</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experiencia / Beneficios -->
+        <section class="experience section">
+            <div class="container">
+                <div class="experience-grid">
+                    <div class="exp-item animate-on-scroll zoom-in" style="--delay: 0.1s">
+                        <div class="exp-icon"><i class="fas fa-droplet"></i></div>
+                        <h4>Refrescante</h4>
+                        <p>El alivio perfecto para los días calurosos.</p>
+                    </div>
+                    <div class="exp-item animate-on-scroll zoom-in" style="--delay: 0.3s">
+                        <div class="exp-icon"><i class="fas fa-heart"></i></div>
+                        <h4>Hecho con Amor</h4>
+                        <p>Pasión en cada gota de nuestras mezclas.</p>
+                    </div>
+                    <div class="exp-item animate-on-scroll zoom-in" style="--delay: 0.5s">
+                        <div class="exp-icon"><i class="fas fa-truck-fast"></i></div>
+                        <h4>Entrega Rápida</h4>
+                        <p>Llega fría y lista para disfrutar a tu puerta.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Galería -->
+        <section class="gallery section bg-light">
+            <div class="container">
+                <div class="text-center animate-on-scroll fade-in">
+                    <h2 class="section-title">Galería <span class="highlight">Michecol</span></h2>
+                </div>
+                <div class="gallery-grid">
+                    <div class="gallery-item animate-on-scroll fade-in"><div class="g-placeholder"></div></div>
+                    <div class="gallery-item animate-on-scroll fade-in"><div class="g-placeholder"></div></div>
+                    <div class="gallery-item animate-on-scroll fade-in"><div class="g-placeholder"></div></div>
+                    <div class="gallery-item animate-on-scroll fade-in"><div class="g-placeholder"></div></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section id="contacto" class="cta-section section">
+            <div class="cta-bg"></div>
+            <div class="container cta-container animate-on-scroll zoom-in">
+                <h2>¿Listo para probar la mejor michelada?</h2>
+                <p>Escríbenos ahora y recibe tu pedido en minutos.</p>
+                <a href="https://wa.me/573170677776" target="_blank" class="btn btn-primary btn-huge pulse-anim">
+                    <i class="fab fa-whatsapp"></i> Haz tu pedido aquí
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-brand">
+                <img src="./logo.png" alt="Michecol" class="footer-logo">
+                <p>Las mejores micheladas de la ciudad, hechas con calidad premium y un sabor inigualable.</p>
+            </div>
+            <div class="footer-links">
+                <h3>Contacto</h3>
+                <p><i class="fab fa-whatsapp"></i> +57 317 0677776</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Michecol. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/573170677776" target="_blank" class="wa-float" aria-label="Chat en WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- JS -->
+    <script src="./script.js"></script>
+</body>
+</html>
