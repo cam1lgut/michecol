@@ -122,6 +122,19 @@ body {
   font-weight: 600;
 }
 
+.back-btn {
+  border: 1px solid #ced8d3;
+  background: #fff;
+  color: #334155;
+  border-radius: 999px;
+  padding: 0.62rem 1rem;
+  cursor: pointer;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+
 .panel-main {
   max-width: 1200px;
   margin: 0 auto;
@@ -275,8 +288,10 @@ th {
   }
 
   .refresh-btn,
-  .logout-btn {
+  .logout-btn,
+  .back-btn {
     width: 100%;
+    justify-content: center;
   }
 
   .stats-grid {
