@@ -77,6 +77,24 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // 3.1 Scroll suave del CTA principal hacia productos
+    const heroScrollButton = document.querySelector('.hero-scroll-btn');
+    const productsSection = document.getElementById('productos');
+
+    if (heroScrollButton && productsSection) {
+        heroScrollButton.addEventListener('click', (event) => {
+            event.preventDefault();
+
+            const navbarOffset = 90;
+            const targetTop = productsSection.getBoundingClientRect().top + window.scrollY - navbarOffset;
+
+            window.scrollTo({
+                top: Math.max(targetTop, 0),
+                behavior: 'smooth'
+            });
+        });
+    }
+
     // 4. Boton flotante PQR
     const pqrButton = document.getElementById('pqr-float');
     const pqrCard = document.getElementById('pqr-card');
