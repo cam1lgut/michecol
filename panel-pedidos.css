@@ -21,7 +21,7 @@ body {
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 .panel-login-wrap {
