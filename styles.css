@@ -772,6 +772,118 @@ img {
     text-decoration: underline;
 }
 
+.order-modal {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1200;
+}
+
+.order-modal.active {
+    display: flex;
+}
+
+.order-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.62);
+    backdrop-filter: blur(2px);
+}
+
+.order-modal-content {
+    position: relative;
+    width: min(520px, calc(100vw - 30px));
+    background: var(--color-white);
+    border-radius: 18px;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.22);
+    padding: 1.4rem;
+    z-index: 1;
+}
+
+.order-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #eef2ff;
+    color: #334155;
+    cursor: pointer;
+}
+
+.order-modal-content h3 {
+    font-size: 1.35rem;
+    color: var(--color-dark);
+    margin-bottom: 0.2rem;
+}
+
+.order-modal-note {
+    color: var(--text-muted);
+    font-size: 0.92rem;
+    margin-bottom: 1rem;
+}
+
+.order-form {
+    display: grid;
+    gap: 0.58rem;
+}
+
+.order-form label {
+    font-size: 0.86rem;
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.order-form input,
+.order-form select,
+.order-form textarea {
+    width: 100%;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    padding: 0.6rem 0.72rem;
+    font-size: 0.95rem;
+    font-family: inherit;
+    color: var(--text-main);
+    background: #ffffff;
+}
+
+.order-form input:focus-visible,
+.order-form select:focus-visible,
+.order-form textarea:focus-visible {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+}
+
+.order-price-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #ecfdf5;
+    border: 1px solid #a7f3d0;
+    border-radius: 10px;
+    padding: 0.68rem 0.72rem;
+    color: #14532d;
+}
+
+.order-status {
+    min-height: 1.2rem;
+    font-size: 0.88rem;
+    margin-top: 0.3rem;
+}
+
+.order-status.success {
+    color: #166534;
+}
+
+.order-status.error {
+    color: #b91c1c;
+}
+
 /* ==========================================================================
    ANIMACIONES
    ========================================================================== */
@@ -954,5 +1066,10 @@ img {
         right: 20px;
         bottom: 136px;
         width: min(300px, calc(100vw - 32px));
+    }
+
+    .order-modal-content {
+        width: min(500px, calc(100vw - 20px));
+        padding: 1.1rem;
     }
 }

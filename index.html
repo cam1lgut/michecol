@@ -85,8 +85,8 @@
                         <div class="product-info">
                             <h3 class="product-name">Michecol Clásica</h3>
                             <p class="product-desc">Limón, sal, cerveza bien fría y nuestro escarchado especial.</p>
-                            <span class="product-price">$12.000</span>
-                            <a href="https://wa.me/573170677776" target="_blank" class="btn btn-outline">Pedir Ahora</a>
+                            <span class="product-price">Desde $5.000 COP</span>
+                            <button type="button" class="btn btn-outline open-order-modal" data-product="Michecol Clásica">Pedir Ahora</button>
                         </div>
                     </div>
 
@@ -98,8 +98,8 @@
                         <div class="product-info">
                             <h3 class="product-name">Michecol Mango Biche</h3>
                             <p class="product-desc">Trozos de mango biche, tajín, chamoy y cerveza premium.</p>
-                            <span class="product-price">$16.000</span>
-                            <a href="https://wa.me/573170677776" target="_blank" class="btn btn-outline">Pedir Ahora</a>
+                            <span class="product-price">Desde $5.000 COP</span>
+                            <button type="button" class="btn btn-outline open-order-modal" data-product="Michecol Mango Biche">Pedir Ahora</button>
                         </div>
                     </div>
 
@@ -111,8 +111,8 @@
                         <div class="product-info">
                             <h3 class="product-name">Michecol Fuego</h3>
                             <p class="product-desc">Para los atrevidos. Salsa picante artesanal, limón y especias.</p>
-                            <span class="product-price">$15.000</span>
-                            <a href="https://wa.me/573170677776" target="_blank" class="btn btn-outline">Pedir Ahora</a>
+                            <span class="product-price">Desde $5.000 COP</span>
+                            <button type="button" class="btn btn-outline open-order-modal" data-product="Michecol Fuego">Pedir Ahora</button>
                         </div>
                     </div>
                 </div>
@@ -230,6 +230,54 @@
     <a href="https://wa.me/573170677776" target="_blank" class="wa-float" aria-label="Chat en WhatsApp">
         <i class="fab fa-whatsapp"></i>
     </a>
+
+    <!-- Modal de pedidos -->
+    <div class="order-modal" id="order-modal" aria-hidden="true">
+        <div class="order-modal-backdrop" id="order-modal-backdrop"></div>
+        <div class="order-modal-content" role="dialog" aria-modal="true" aria-labelledby="order-modal-title">
+            <button type="button" class="order-close" id="order-close" aria-label="Cerrar formulario de pedido">
+                <i class="fas fa-times"></i>
+            </button>
+
+            <h3 id="order-modal-title">Realiza tu pedido</h3>
+            <p class="order-modal-note">Pago contra entrega en efectivo.</p>
+
+            <form id="order-form" class="order-form">
+                <label for="order-name">Nombre completo</label>
+                <input id="order-name" name="cliente_nombre" type="text" required>
+
+                <label for="order-phone">Teléfono</label>
+                <input id="order-phone" name="cliente_telefono" type="tel" required>
+
+                <label for="order-address">Dirección</label>
+                <input id="order-address" name="direccion" type="text" required>
+
+                <label for="order-product">Producto</label>
+                <input id="order-product" name="producto" type="text" readonly required>
+
+                <label for="order-size">Tamaño</label>
+                <select id="order-size" name="tamano" required>
+                    <option value="pequeno" data-price="5000">Pequeño - $5.000 COP</option>
+                    <option value="mediano" data-price="6000">Mediano - $6.000 COP</option>
+                    <option value="grande" data-price="7000">Grande - $7.000 COP</option>
+                </select>
+
+                <div class="order-price-row">
+                    <span>Total</span>
+                    <strong id="order-total">$5.000 COP</strong>
+                </div>
+
+                <label for="order-notes">Notas (opcional)</label>
+                <textarea id="order-notes" name="notas" rows="2" placeholder="Ejemplo: sin picante"></textarea>
+
+                <input type="hidden" name="precio" id="order-price-hidden" value="5000">
+                <input type="hidden" name="metodo_pago" value="efectivo">
+
+                <button type="submit" class="btn btn-primary">Confirmar pedido</button>
+                <p id="order-status" class="order-status" aria-live="polite"></p>
+            </form>
+        </div>
+    </div>
 
     <!-- JS -->
     <script src="./script.js"></script>

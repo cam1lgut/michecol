@@ -1,4 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const API_BASE_URL = window.MICHECOL_API_BASE_URL || '';
+    const ORDERS_ENDPOINT = `${API_BASE_URL}/api/pedidos`;
+
     // 1. Preloader
     const preloader = document.getElementById('preloader');
     
@@ -85,6 +88,110 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!clickInsidePqr) {
                 pqrCard.classList.remove('active');
                 pqrButton.setAttribute('aria-expanded', 'false');
+            }
+        });
+    }
+
+    // 5. Modal de pedidos
+    const orderModal = document.getElementById('order-modal');
+    const orderBackdrop = document.getElementById('order-modal-backdrop');
+    const orderCloseButton = document.getElementById('order-close');
+    const openOrderButtons = document.querySelectorAll('.open-order-modal');
+    const orderForm = document.getElementById('order-form');
+    const orderProductInput = document.getElementById('order-product');
+    const orderSizeSelect = document.getElementById('order-size');
+    const orderTotal = document.getElementById('order-total');
+    const orderPriceHidden = document.getElementById('order-price-hidden');
+    const orderStatus = document.getElementById('order-status');
+
+    const currencyFormatter = new Intl.NumberFormat('es-CO');
+
+    const setStatus = (message, statusClass = '') => {
+        orderStatus.textContent = message;
+        orderStatus.classList.remove('success', 'error');
+        if (statusClass) {
+            orderStatus.classList.add(statusClass);
+        }
+    };
+
+    const updateOrderPrice = () => {
+        const selectedOption = orderSizeSelect.options[orderSizeSelect.selectedIndex];
+        const selectedPrice = Number(selectedOption?.dataset?.price || 5000);
+        orderPriceHidden.value = String(selectedPrice);
+        orderTotal.textContent = `$${currencyFormatter.format(selectedPrice)} COP`;
+    };
+
+    const openOrderModal = (productName) => {
+        orderProductInput.value = productName;
+        orderSizeSelect.value = 'pequeno';
+        updateOrderPrice();
+        setStatus('');
+        orderModal.classList.add('active');
+        orderModal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+    };
+
+    const closeOrderModal = () => {
+        orderModal.classList.remove('active');
+        orderModal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+    };
+
+    if (orderModal && orderForm && orderSizeSelect) {
+        openOrderButtons.forEach((button) => {
+            button.addEventListener('click', () => {
+                const productName = button.getAttribute('data-product') || 'Michecol';
+                openOrderModal(productName);
+            });
+        });
+
+        orderSizeSelect.addEventListener('change', updateOrderPrice);
+
+        orderCloseButton.addEventListener('click', closeOrderModal);
+        orderBackdrop.addEventListener('click', closeOrderModal);
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && orderModal.classList.contains('active')) {
+                closeOrderModal();
+            }
+        });
+
+        orderForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            updateOrderPrice();
+
+            const submitButton = orderForm.querySelector('button[type="submit"]');
+            submitButton.disabled = true;
+            setStatus('Enviando pedido...');
+
+            const formData = new FormData(orderForm);
+            const payload = Object.fromEntries(formData.entries());
+
+            try {
+                const response = await fetch(ORDERS_ENDPOINT, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    throw new Error('No se pudo guardar el pedido.');
+                }
+
+                setStatus('Pedido recibido con exito. Te contactaremos pronto.', 'success');
+                orderForm.reset();
+                orderSizeSelect.value = 'pequeno';
+                updateOrderPrice();
+
+                setTimeout(() => {
+                    closeOrderModal();
+                }, 900);
+            } catch (error) {
+                setStatus('No se pudo enviar. Intenta de nuevo o usa WhatsApp.', 'error');
+            } finally {
+                submitButton.disabled = false;
             }
         });
     }
