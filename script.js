@@ -69,4 +69,23 @@ document.addEventListener('DOMContentLoaded', () => {
             toggleIcon.classList.add('fa-bars');
         });
     });
+
+    // 4. Boton flotante PQR
+    const pqrButton = document.getElementById('pqr-float');
+    const pqrCard = document.getElementById('pqr-card');
+
+    if (pqrButton && pqrCard) {
+        pqrButton.addEventListener('click', () => {
+            const isOpen = pqrCard.classList.toggle('active');
+            pqrButton.setAttribute('aria-expanded', String(isOpen));
+        });
+
+        document.addEventListener('click', (event) => {
+            const clickInsidePqr = pqrCard.contains(event.target) || pqrButton.contains(event.target);
+            if (!clickInsidePqr) {
+                pqrCard.classList.remove('active');
+                pqrButton.setAttribute('aria-expanded', 'false');
+            }
+        });
+    }
 });
