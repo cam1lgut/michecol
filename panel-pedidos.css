@@ -252,6 +252,12 @@ th {
   background: #0ea5e9;
 }
 
+.action-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
 .action-btn:hover {
   background: #0284c7;
 }
@@ -260,6 +266,14 @@ th {
   cursor: default;
   background: #d1fae5;
   color: #065f46;
+}
+
+.action-btn.delete {
+  background: #ef4444;
+}
+
+.action-btn.delete:hover {
+  background: #dc2626;
 }
 
 .orders-error {

@@ -68,9 +68,11 @@ document.addEventListener('DOMContentLoaded', () => {
     ordersBody.innerHTML = orders.map((order) => {
       const stateClass = escapeHtml(order.estado || 'pendiente');
       const isDelivered = (order.estado || '').toLowerCase() === 'entregado';
-      const actionCell = isDelivered
+      const deliverAction = isDelivered
         ? '<span class="action-btn done">Entregado</span>'
         : `<button type="button" class="action-btn deliver-btn" data-id="${order.id}">Marcar entregado</button>`;
+      const deleteAction = `<button type="button" class="action-btn delete delete-btn" data-id="${order.id}">Eliminar</button>`;
+      const actionCell = `<div class="action-group">${deliverAction}${deleteAction}</div>`;
       return `
         <tr>
           <td>${formatHour(order.created_at)}</td>
@@ -182,6 +184,22 @@ document.addEventListener('DOMContentLoaded', () => {
     await loadOrders();
   };
 
+  const deleteOrder = async (orderId) => {
+    ordersError.textContent = '';
+
+    const { error } = await supabase
+      .from('pedidos')
+      .delete()
+      .eq('id', Number(orderId));
+
+    if (error) {
+      ordersError.textContent = `No se pudo eliminar pedido: ${error.message}`;
+      return;
+    }
+
+    await loadOrders();
+  };
+
   loginForm.addEventListener('submit', (event) => {
     event.preventDefault();
     loginError.textContent = '';
@@ -205,17 +223,33 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   ordersBody.addEventListener('click', (event) => {
-    const button = event.target.closest('.deliver-btn');
-    if (!button) {
+    const deliverButton = event.target.closest('.deliver-btn');
+    if (deliverButton) {
+      const orderId = deliverButton.getAttribute('data-id');
+      if (!orderId) {
+        return;
+      }
+
+      markAsDelivered(orderId);
       return;
     }
 
-    const orderId = button.getAttribute('data-id');
+    const deleteButton = event.target.closest('.delete-btn');
+    if (!deleteButton) {
+      return;
+    }
+
+    const orderId = deleteButton.getAttribute('data-id');
     if (!orderId) {
       return;
     }
 
-    markAsDelivered(orderId);
+    const confirmed = window.confirm('¿Seguro que quieres eliminar este pedido? Esta accion no se puede deshacer.');
+    if (!confirmed) {
+      return;
+    }
+
+    deleteOrder(orderId);
   });
 
   refreshButton.addEventListener('click', loadOrders);
