@@ -1192,3 +1192,47 @@ img {
         padding: 1.1rem;
     }
 }
+
+@media (min-width: 992px) {
+    .pqr-float {
+        bottom: 98px !important;
+        right: 24px !important;
+        height: 44px !important;
+        padding: 0 13px !important;
+        gap: 6px !important;
+    }
+
+    .pqr-float span {
+        font-size: 0.78rem !important;
+    }
+
+    .pqr-card {
+        right: 24px !important;
+        bottom: 148px !important;
+        width: 282px !important;
+        max-height: 62vh !important;
+        padding: 10px !important;
+        gap: 5px !important;
+    }
+
+    .pqr-title {
+        font-size: 0.92rem !important;
+    }
+
+    .pqr-form label,
+    .pqr-subtitle,
+    .pqr-counter,
+    .pqr-status {
+        font-size: 0.74rem !important;
+    }
+
+    .pqr-form input,
+    .pqr-form textarea,
+    .pqr-card a {
+        font-size: 0.8rem !important;
+    }
+
+    .pqr-form textarea {
+        min-height: 70px !important;
+    }
+}
