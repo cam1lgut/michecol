@@ -217,8 +217,9 @@
     </footer>
 
     <!-- Floating PQR Button -->
-    <button type="button" id="pqr-float" class="pqr-float" aria-label="Ver correos de PQR" aria-expanded="false">
-        PQR
+    <button type="button" id="pqr-float" class="pqr-float" aria-label="Abrir formulario de PQR" aria-expanded="false">
+        <i class="fas fa-circle-question" aria-hidden="true"></i>
+        <span>PQR</span>
     </button>
 
     <div id="pqr-card" class="pqr-card" role="dialog" aria-label="Formulario de atencion PQR">
@@ -226,6 +227,9 @@
         <form id="pqr-form" class="pqr-form">
             <label for="pqr-name">Nombre</label>
             <input id="pqr-name" name="nombre" type="text" maxlength="80" placeholder="Tu nombre" required>
+
+            <label for="pqr-email">Correo</label>
+            <input id="pqr-email" name="correo" type="email" maxlength="120" placeholder="tucorreo@ejemplo.com" required>
 
             <label for="pqr-message">Mensaje (max. 500 caracteres)</label>
             <textarea id="pqr-message" name="mensaje" maxlength="500" rows="4" placeholder="Escribe tu PQR" required></textarea>

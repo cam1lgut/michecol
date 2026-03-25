@@ -151,10 +151,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const formData = new FormData(pqrForm);
             const nombre = String(formData.get('nombre') || '').trim();
+            const correo = String(formData.get('correo') || '').trim();
             const mensaje = String(formData.get('mensaje') || '').trim();
+
+            const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo);
 
             if (!mensaje || mensaje.length > 500) {
                 setPqrStatus('El mensaje debe tener entre 1 y 500 caracteres.', 'error');
+                return;
+            }
+
+            if (!isValidEmail) {
+                setPqrStatus('Ingresa un correo valido para poder darte respuesta.', 'error');
                 return;
             }
 
@@ -168,6 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     .insert([
                         {
                             nombre,
+                            correo,
                             mensaje
                         }
                     ]);

@@ -132,7 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const renderPqrRows = (pqrItems) => {
     if (!pqrItems.length) {
-      pqrBody.innerHTML = '<tr><td colspan="3" class="empty-row">Aun no hay PQR.</td></tr>';
+      pqrBody.innerHTML = '<tr><td colspan="4" class="empty-row">Aun no hay PQR.</td></tr>';
       return;
     }
 
@@ -140,6 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <tr>
         <td>${formatHour(item.created_at)}</td>
         <td>${escapeHtml(item.nombre || 'Anonimo')}</td>
+        <td>${escapeHtml(item.correo || '-')}</td>
         <td>${escapeHtml(item.mensaje || '')}</td>
       </tr>
     `).join('');
@@ -155,7 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const { data, error } = await supabase
       .from('pqr')
-      .select('created_at, nombre, mensaje')
+      .select('created_at, nombre, correo, mensaje')
       .order('created_at', { ascending: false })
       .limit(200);
 
