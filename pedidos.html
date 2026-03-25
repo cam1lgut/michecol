@@ -105,11 +105,12 @@
                 <th>Nombre</th>
                 <th>Correo</th>
                 <th>Mensaje</th>
+                <th>Acción</th>
               </tr>
             </thead>
             <tbody id="pqr-body">
               <tr>
-                <td colspan="4" class="empty-row">Cargando PQR...</td>
+                <td colspan="5" class="empty-row">Cargando PQR...</td>
               </tr>
             </tbody>
           </table>
@@ -117,6 +118,16 @@
         <p id="pqr-error" class="orders-error" aria-live="polite"></p>
       </section>
     </main>
+  </div>
+
+  <div id="pqr-modal" class="pqr-modal hidden" aria-hidden="true">
+    <div class="pqr-modal-backdrop" id="pqr-modal-backdrop"></div>
+    <article class="pqr-modal-content" role="dialog" aria-modal="true" aria-labelledby="pqr-modal-title">
+      <button type="button" id="pqr-modal-close" class="pqr-modal-close" aria-label="Cerrar detalle PQR">×</button>
+      <h3 id="pqr-modal-title">Detalle PQR</h3>
+      <p id="pqr-modal-meta" class="pqr-modal-meta"></p>
+      <p id="pqr-modal-message" class="pqr-modal-message"></p>
+    </article>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>

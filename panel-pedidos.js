@@ -19,6 +19,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const ordersError = document.getElementById('orders-error');
   const pqrBody = document.getElementById('pqr-body');
   const pqrError = document.getElementById('pqr-error');
+  const pqrModal = document.getElementById('pqr-modal');
+  const pqrModalBackdrop = document.getElementById('pqr-modal-backdrop');
+  const pqrModalClose = document.getElementById('pqr-modal-close');
+  const pqrModalMeta = document.getElementById('pqr-modal-meta');
+  const pqrModalMessage = document.getElementById('pqr-modal-message');
   const refreshButton = document.getElementById('refresh-btn');
   const lastSync = document.getElementById('last-sync');
 
@@ -46,6 +51,14 @@ document.addEventListener('DOMContentLoaded', () => {
     .replaceAll('>', '&gt;')
     .replaceAll('"', '&quot;')
     .replaceAll("'", '&#039;');
+
+  const previewMessage = (text, max = 95) => {
+    const safe = String(text || '');
+    if (safe.length <= max) {
+      return safe;
+    }
+    return `${safe.slice(0, max)}...`;
+  };
 
   const isAuthenticated = () => sessionStorage.getItem(AUTH_KEY) === 'ok';
 
@@ -132,7 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const renderPqrRows = (pqrItems) => {
     if (!pqrItems.length) {
-      pqrBody.innerHTML = '<tr><td colspan="4" class="empty-row">Aun no hay PQR.</td></tr>';
+      pqrBody.innerHTML = '<tr><td colspan="5" class="empty-row">Aun no hay PQR.</td></tr>';
       return;
     }
 
@@ -141,7 +154,13 @@ document.addEventListener('DOMContentLoaded', () => {
         <td>${formatHour(item.created_at)}</td>
         <td>${escapeHtml(item.nombre || 'Anonimo')}</td>
         <td>${escapeHtml(item.correo || '-')}</td>
-        <td>${escapeHtml(item.mensaje || '')}</td>
+        <td><span class="message-preview">${escapeHtml(previewMessage(item.mensaje || ''))}</span></td>
+        <td>
+          <div class="pqr-actions">
+            <button type="button" class="action-btn read pqr-read-btn" data-id="${item.id}">Leer</button>
+            <button type="button" class="action-btn delete pqr-delete-btn" data-id="${item.id}">Eliminar</button>
+          </div>
+        </td>
       </tr>
     `).join('');
   };
@@ -156,7 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const { data, error } = await supabase
       .from('pqr')
-      .select('created_at, nombre, correo, mensaje')
+      .select('id, created_at, nombre, correo, mensaje')
       .order('created_at', { ascending: false })
       .limit(200);
 
@@ -166,6 +185,49 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     renderPqrRows(data || []);
+  };
+
+  const openPqrModal = (data) => {
+    pqrModalMeta.textContent = `${data.nombre || 'Anonimo'} · ${data.correo || '-'} · ${formatHour(data.created_at)}`;
+    pqrModalMessage.textContent = data.mensaje || '';
+    pqrModal.classList.remove('hidden');
+    pqrModal.setAttribute('aria-hidden', 'false');
+  };
+
+  const closePqrModal = () => {
+    pqrModal.classList.add('hidden');
+    pqrModal.setAttribute('aria-hidden', 'true');
+  };
+
+  const loadSinglePqr = async (pqrId) => {
+    const { data, error } = await supabase
+      .from('pqr')
+      .select('id, created_at, nombre, correo, mensaje')
+      .eq('id', Number(pqrId))
+      .single();
+
+    if (error || !data) {
+      pqrError.textContent = `No se pudo cargar el PQR: ${error?.message || 'No encontrado'}`;
+      return;
+    }
+
+    openPqrModal(data);
+  };
+
+  const deletePqr = async (pqrId) => {
+    pqrError.textContent = '';
+
+    const { error } = await supabase
+      .from('pqr')
+      .delete()
+      .eq('id', Number(pqrId));
+
+    if (error) {
+      pqrError.textContent = `No se pudo eliminar PQR: ${error.message}`;
+      return;
+    }
+
+    await loadPqr();
   };
 
   const markAsDelivered = async (orderId) => {
@@ -251,6 +313,45 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     deleteOrder(orderId);
+  });
+
+  pqrBody.addEventListener('click', (event) => {
+    const readButton = event.target.closest('.pqr-read-btn');
+    if (readButton) {
+      const pqrId = readButton.getAttribute('data-id');
+      if (!pqrId) {
+        return;
+      }
+
+      loadSinglePqr(pqrId);
+      return;
+    }
+
+    const deleteButton = event.target.closest('.pqr-delete-btn');
+    if (!deleteButton) {
+      return;
+    }
+
+    const pqrId = deleteButton.getAttribute('data-id');
+    if (!pqrId) {
+      return;
+    }
+
+    const confirmed = window.confirm('¿Seguro que quieres eliminar este PQR? Esta accion no se puede deshacer.');
+    if (!confirmed) {
+      return;
+    }
+
+    deletePqr(pqrId);
+  });
+
+  pqrModalClose.addEventListener('click', closePqrModal);
+  pqrModalBackdrop.addEventListener('click', closePqrModal);
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && !pqrModal.classList.contains('hidden')) {
+      closePqrModal();
+    }
   });
 
   refreshButton.addEventListener('click', loadOrders);

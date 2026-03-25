@@ -175,6 +175,84 @@ body {
   margin-top: 14px;
 }
 
+.message-preview {
+  display: inline-block;
+  max-width: 360px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: top;
+}
+
+.pqr-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.action-btn.read {
+  background: #334155;
+}
+
+.action-btn.read:hover {
+  background: #1f2937;
+}
+
+.pqr-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: grid;
+  place-items: center;
+}
+
+.pqr-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.6);
+}
+
+.pqr-modal-content {
+  position: relative;
+  z-index: 1;
+  width: min(560px, calc(100vw - 24px));
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid #dce8e1;
+  padding: 1rem;
+  box-shadow: 0 26px 44px rgba(15, 23, 42, 0.28);
+}
+
+.pqr-modal-close {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  border: none;
+  background: transparent;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  color: #475569;
+}
+
+.pqr-modal-content h3 {
+  margin: 0 1.4rem 0.45rem 0;
+  font-size: 1.15rem;
+}
+
+.pqr-modal-meta {
+  margin: 0 0 0.55rem;
+  color: #475569;
+  font-size: 0.84rem;
+}
+
+.pqr-modal-message {
+  margin: 0;
+  white-space: pre-wrap;
+  color: #0f172a;
+  font-size: 0.93rem;
+}
+
 .table-head {
   display: flex;
   justify-content: space-between;

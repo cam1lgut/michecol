@@ -92,12 +92,20 @@ create index if not exists pqr_created_at_idx on public.pqr (created_at desc);
 alter table public.pqr enable row level security;
 
 grant insert, select on table public.pqr to anon;
+grant delete on table public.pqr to anon;
 grant usage, select on sequence public.pqr_id_seq to anon;
 
 drop policy if exists pqr_select_anon on public.pqr;
 create policy pqr_select_anon
 on public.pqr
 for select
+to anon
+using (true);
+
+drop policy if exists pqr_delete_anon on public.pqr;
+create policy pqr_delete_anon
+on public.pqr
+for delete
 to anon
 using (true);
 
