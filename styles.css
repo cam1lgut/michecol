@@ -401,10 +401,11 @@ img {
     border-radius: 0;
     display: flex;
     align-items: center;
-    background:
-        radial-gradient(circle at 72% 40%, rgba(16, 185, 129, 0.45) 0, rgba(16, 185, 129, 0) 34%),
-        radial-gradient(circle at 18% 18%, rgba(255,255,255,0.14) 0, rgba(255,255,255,0) 36%),
-        linear-gradient(130deg, #065f46 0%, #047857 48%, #059669 100%);
+    background-color: #0f172a;
+    background-image: url('./imagen2.png');
+    background-size: cover;
+    background-position: center right;
+    background-repeat: no-repeat;
     box-shadow: 0 30px 60px rgba(15, 23, 42, 0.28);
 }
 
@@ -420,7 +421,7 @@ img {
 .about-stage-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to right, rgba(0,0,0,0.42) 0%, rgba(0,0,0,0.18) 46%, rgba(0,0,0,0.08) 100%);
+    background: linear-gradient(to right, rgba(0,0,0,0.86) 0%, rgba(0,0,0,0.44) 52%, rgba(0,0,0,0.12) 100%);
 }
 
 .about-stage-container {
@@ -429,9 +430,7 @@ img {
 }
 
 .about-stage-content-wrap {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(320px, 500px);
-    gap: 1.5rem;
+    display: block;
     align-items: center;
 }
 
@@ -440,20 +439,6 @@ img {
     z-index: 1;
     max-width: 660px;
     color: #f8fafc;
-}
-
-.about-stage-visual {
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-end;
-    min-height: 580px;
-}
-
-.about-stage-character {
-    width: min(100%, 520px);
-    max-height: 640px;
-    object-fit: contain;
-    filter: drop-shadow(0 20px 28px rgba(0, 0, 0, 0.33));
 }
 
 .about-stage-badge {
@@ -1126,15 +1111,16 @@ img {
 
     .about-stage {
         min-height: 640px;
+        background-image: url('./imagen2.png');
+        background-position: center;
     }
 
     .about-stage-overlay {
-        background: linear-gradient(to bottom, rgba(4, 12, 24, 0.35) 0%, rgba(4, 12, 24, 0.65) 100%);
+        background: linear-gradient(to bottom, rgba(4, 12, 24, 0.55) 0%, rgba(4, 12, 24, 0.85) 100%);
     }
 
     .about-stage-content-wrap {
-        grid-template-columns: 1fr;
-        gap: 1rem;
+        display: block;
     }
 
     .about-stage-content {
@@ -1144,16 +1130,6 @@ img {
 
     .about-stage-tags {
         justify-content: center;
-    }
-
-    .about-stage-visual {
-        justify-content: center;
-        min-height: auto;
-    }
-
-    .about-stage-character {
-        width: min(100%, 430px);
-        max-height: 430px;
     }
 }
 
