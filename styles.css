@@ -1147,6 +1147,11 @@ img {
         background-position: top center;
     }
 
+    .about-stage {
+        background-image: url('./imagen2v.png');
+        background-position: top center;
+    }
+
     .nav-toggle {
         display: block;
     }
