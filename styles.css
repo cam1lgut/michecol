@@ -1222,49 +1222,18 @@ img {
     }
 
     .wa-float {
-        min-width: 188px;
-        height: 48px;
-        padding: 0 50px 0 16px;
+        width: 56px;
+        height: 56px;
+        font-size: 30px;
         bottom: 20px;
         right: 20px;
     }
 
-    .wa-label {
-        font-size: 1.55rem;
-    }
-
-    .wa-lime {
-        width: 56px;
-        height: 56px;
-        right: -6px;
-    }
-
-    .wa-lime i {
-        width: 30px;
-        height: 30px;
-        font-size: 1rem;
-    }
-
     .pqr-float {
-        bottom: 84px;
+        bottom: 86px;
         right: 20px;
         height: 44px;
-        min-width: 132px;
-        padding: 0 38px 0 14px;
-    }
-
-    .pqr-label {
-        font-size: 1.45rem;
-    }
-
-    .pqr-miche {
-        width: 50px;
-        height: 50px;
-        right: -5px;
-    }
-
-    .pqr-miche i {
-        font-size: 1rem;
+        padding: 0 14px;
     }
 
     .pqr-card {
@@ -1287,25 +1256,10 @@ img {
 
 @media (min-width: 992px) {
     .pqr-float {
-        bottom: 88px !important;
-        right: 24px !important;
-        height: 46px !important;
-        min-width: 150px !important;
-        padding: 0 44px 0 16px !important;
-    }
-
-    .pqr-label {
-        font-size: 1.6rem !important;
-    }
-
-    .pqr-miche {
-        width: 54px !important;
-        height: 54px !important;
-        right: -5px !important;
-    }
-
-    .pqr-miche i {
-        font-size: 1.08rem !important;
+        bottom: 105px !important;
+        right: 30px !important;
+        height: 50px !important;
+        padding: 0 16px !important;
     }
 
     .pqr-card {
