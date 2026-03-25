@@ -404,32 +404,151 @@ img {
 }
 
 .about-cards {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 1.2rem;
 }
 
 .about-card {
-    padding: 2rem;
+    padding: 1.4rem;
+    border-radius: 18px;
+    border: 1px solid #dbece4;
+    background: var(--color-white);
+    box-shadow: 0 16px 30px rgba(15, 23, 42, 0.08);
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    border-left: 4px solid var(--color-primary);
-    transition: transform var(--transition-normal);
+    gap: 0.75rem;
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
 }
 
 .about-card:hover {
-    transform: translateX(10px);
+    transform: translateY(-4px);
+    box-shadow: 0 22px 36px rgba(15, 23, 42, 0.12);
+}
+
+.about-card-main {
+    position: relative;
+    overflow: hidden;
+}
+
+.about-card-main::before {
+    content: '';
+    position: absolute;
+    top: -55px;
+    right: -55px;
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(16,185,129,0.24), rgba(16,185,129,0));
+}
+
+.about-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.7rem;
+}
+
+.about-chip {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    background: #ecfdf5;
+    color: #047857;
+    border: 1px solid #a7f3d0;
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    padding: 0.28rem 0.58rem;
 }
 
 .card-icon {
-    font-size: 2.5rem;
-    color: var(--color-secondary);
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    font-size: 1.25rem;
+    color: #b45309;
+    background: #fffbeb;
+    border: 1px solid #fde68a;
 }
 
 .about-card h3 {
     color: var(--color-dark);
-    font-size: 1.3rem;
+    font-size: 1.15rem;
+    margin: 0;
+}
+
+.about-card p {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+.about-points {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0.45rem;
+}
+
+.about-points li {
+    font-size: 0.88rem;
+    color: #334155;
+    padding-left: 1.05rem;
+    position: relative;
+}
+
+.about-points li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.54rem;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--color-primary);
+}
+
+.about-card-accent {
+    background: linear-gradient(160deg, #0f172a 0%, #1f3a2f 100%);
+    border: none;
+    color: #e2f9ee;
+}
+
+.about-card-accent .about-chip {
+    background: rgba(16, 185, 129, 0.2);
+    border-color: rgba(110, 231, 183, 0.45);
+    color: #d1fae5;
+    width: fit-content;
+}
+
+.about-card-accent h3,
+.about-card-accent p {
+    color: #f1f5f9;
+}
+
+.about-metric {
+    margin-top: auto;
+    padding-top: 0.6rem;
+    border-top: 1px solid rgba(255,255,255,0.16);
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+}
+
+.about-metric strong {
+    font-size: 2rem;
+    line-height: 1;
+    color: #34d399;
+}
+
+.about-metric span {
+    font-size: 0.84rem;
+    color: #d1fae5;
 }
 
 /* ==========================================================================
@@ -1066,6 +1185,10 @@ img {
     
     .about-text {
         text-align: center;
+    }
+
+    .about-cards {
+        grid-template-columns: 1fr;
     }
 }
 
