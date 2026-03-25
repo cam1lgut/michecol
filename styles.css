@@ -779,17 +779,19 @@ img {
     position: fixed;
     bottom: 105px;
     right: 30px;
-    height: 50px;
-    padding: 0 16px;
+    width: 58px;
+    height: 58px;
+    padding: 0;
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    justify-content: center;
+    gap: 0;
     background: linear-gradient(135deg, #ef4444 0%, #dc2626 52%, #b91c1c 100%);
     color: var(--color-white);
     border: none;
-    border-radius: var(--radius-full);
-    font-weight: 700;
-    letter-spacing: 0.03em;
+    border-radius: 50%;
+    font-weight: 800;
+    letter-spacing: 0.02em;
     cursor: pointer;
     box-shadow: 0 10px 24px rgba(185, 28, 28, 0.35);
     z-index: 101;
@@ -803,11 +805,11 @@ img {
 }
 
 .pqr-float i {
-    font-size: 0.95rem;
+    display: none;
 }
 
 .pqr-float span {
-    font-size: 0.84rem;
+    font-size: 0.78rem;
 }
 
 .pqr-card {
@@ -1091,6 +1093,8 @@ img {
         align-items: flex-start;
         text-align: left;
         gap: 3rem;
+        padding-left: 14px;
+        padding-right: 14px;
     }
     
     .hero-overlay {
@@ -1107,6 +1111,10 @@ img {
 
     .hero-subtitle {
         margin: 0 0 2.5rem;
+    }
+
+    .hero-content {
+        max-width: 100%;
     }
 
     .about-stage {
@@ -1209,6 +1217,11 @@ img {
         font-size: 1rem;
     }
 
+    .hero-container {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
     .section-title {
         font-size: 2rem;
     }
@@ -1241,8 +1254,9 @@ img {
     .pqr-float {
         bottom: 86px;
         right: 20px;
-        height: 44px;
-        padding: 0 14px;
+        width: 52px;
+        height: 52px;
+        padding: 0;
     }
 
     .pqr-card {
@@ -1267,8 +1281,9 @@ img {
     .pqr-float {
         bottom: 105px !important;
         right: 30px !important;
-        height: 50px !important;
-        padding: 0 16px !important;
+        width: 58px !important;
+        height: 58px !important;
+        padding: 0 !important;
     }
 
     .pqr-card {
