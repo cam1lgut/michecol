@@ -589,40 +589,6 @@ img {
 }
 
 /* ==========================================================================
-   GALLERY SECTION
-   ========================================================================== */
-.gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
-}
-
-@media (min-width: 768px) {
-    .gallery-grid {
-        grid-template-columns: repeat(4, 1fr);
-    }
-}
-
-.gallery-item {
-    border-radius: var(--radius-md);
-    overflow: hidden;
-    aspect-ratio: 1 / 1;
-    position: relative;
-    cursor: pointer;
-}
-
-.g-placeholder {
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(45deg, #e2e8f0, #cbd5e1);
-    transition: transform var(--transition-slow);
-}
-
-.gallery-item:hover .g-placeholder {
-    transform: scale(1.05);
-}
-
-/* ==========================================================================
    CTA SECTION
    ========================================================================== */
 .cta-section {
@@ -1229,10 +1195,6 @@ img {
 
     .section-title {
         font-size: 2rem;
-    }
-
-    .gallery-grid {
-        grid-template-columns: 1fr;
     }
 
     .cta-container h2 {
