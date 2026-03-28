@@ -550,6 +550,34 @@ img {
     margin-bottom: 1rem;
 }
 
+.product-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0.55rem;
+}
+
+.product-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 0.95rem;
+    color: var(--text-main);
+    padding: 0.32rem 0;
+    border-bottom: 1px dashed rgba(148, 163, 184, 0.5);
+}
+
+.product-list li strong {
+    color: var(--color-primary-dark);
+    font-size: 0.98rem;
+}
+
+.product-list-simple li {
+    justify-content: flex-start;
+}
+
 /* ==========================================================================
    EXPERIENCE SECTION
    ========================================================================== */

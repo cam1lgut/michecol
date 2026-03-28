@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Folleto Michecol | Triptico Horizontal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --mc-green: #10b981;
+            --mc-green-dark: #047857;
+            --mc-cream: #f8f7f2;
+            --mc-ink: #13212f;
+            --mc-orange: #f59e0b;
+            --mc-red: #ef4444;
+            --paper-shadow: 0 20px 45px rgba(15, 23, 42, 0.22);
+            --line-soft: rgba(19, 33, 47, 0.2);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            background:
+                radial-gradient(circle at 15% 15%, rgba(16, 185, 129, 0.16) 0%, rgba(16, 185, 129, 0) 28%),
+                radial-gradient(circle at 85% 85%, rgba(245, 158, 11, 0.2) 0%, rgba(245, 158, 11, 0) 30%),
+                #ebedf2;
+            color: var(--mc-ink);
+            font-family: Montserrat, sans-serif;
+        }
+
+        .page {
+            min-height: 100dvh;
+            display: grid;
+            place-items: center;
+            padding: 24px;
+        }
+
+        .brochure {
+            width: min(1300px, 100%);
+            aspect-ratio: 3 / 1;
+            max-height: calc(100dvh - 48px);
+            background: #ffffff;
+            border-radius: 18px;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            box-shadow: var(--paper-shadow);
+            position: relative;
+        }
+
+        .brochure::before,
+        .brochure::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: repeating-linear-gradient(
+                to bottom,
+                var(--line-soft) 0,
+                var(--line-soft) 8px,
+                transparent 8px,
+                transparent 16px
+            );
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .brochure::before {
+            left: 33.3333%;
+        }
+
+        .brochure::after {
+            left: 66.6666%;
+        }
+
+        .panel {
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .panel h1,
+        .panel h2,
+        .panel h3 {
+            margin: 0;
+            font-family: "Bebas Neue", sans-serif;
+            letter-spacing: 0.03em;
+            line-height: 1;
+        }
+
+        .panel p {
+            margin: 0;
+            line-height: 1.45;
+            font-size: 0.95rem;
+        }
+
+        .panel-left {
+            color: #ffffff;
+            background:
+                linear-gradient(160deg, rgba(4, 120, 87, 0.96), rgba(15, 23, 42, 0.88)),
+                url("../imagenprincipal.png") center/cover no-repeat;
+        }
+
+        .brand-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .brand-logo {
+            width: 76px;
+            height: 76px;
+            object-fit: contain;
+            filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.35));
+        }
+
+        .brand-chip {
+            padding: 7px 12px;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            background: rgba(255, 255, 255, 0.18);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .headline {
+            margin-top: 14px;
+            margin-bottom: 10px;
+        }
+
+        .headline .line-1 {
+            font-size: clamp(2.2rem, 3vw, 3rem);
+        }
+
+        .headline .line-2 {
+            color: #86efac;
+            font-size: clamp(2.7rem, 3.7vw, 3.4rem);
+            text-shadow: 0 8px 18px rgba(0, 0, 0, 0.35);
+        }
+
+        .headline .line-3 {
+            font-size: clamp(1.65rem, 2.4vw, 2.2rem);
+        }
+
+        .pitch {
+            display: grid;
+            gap: 12px;
+        }
+
+        .pill-list {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .pill-list li {
+            padding: 6px 10px;
+            border-radius: 999px;
+            font-size: 0.76rem;
+            font-weight: 700;
+            background: rgba(255, 255, 255, 0.16);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .panel-mid {
+            background: var(--mc-cream);
+        }
+
+        .panel-mid h2 {
+            font-size: clamp(2.2rem, 3vw, 2.8rem);
+            color: var(--mc-ink);
+            margin-bottom: 10px;
+        }
+
+        .menu-note {
+            color: #324152;
+            margin-bottom: 16px;
+        }
+
+        .menu {
+            display: grid;
+            gap: 12px;
+        }
+
+        .item {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            align-items: center;
+            gap: 10px;
+            padding: 11px 12px;
+            border-radius: 12px;
+            background: #ffffff;
+            border: 1px solid #e6e8eb;
+        }
+
+        .item strong {
+            display: block;
+            font-size: 0.94rem;
+            color: #102033;
+            margin-bottom: 2px;
+        }
+
+        .item span {
+            font-size: 0.77rem;
+            color: #566274;
+        }
+
+        .item .price {
+            font-weight: 800;
+            color: var(--mc-green-dark);
+            font-size: 0.9rem;
+        }
+
+        .combo {
+            margin-top: 12px;
+            padding: 12px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #fff7ed, #ffedd5);
+            border: 1px solid #fdba74;
+        }
+
+        .combo h3 {
+            font-size: 1.6rem;
+            color: #9a3412;
+            margin-bottom: 4px;
+        }
+
+        .combo p {
+            color: #7c2d12;
+            font-size: 0.86rem;
+        }
+
+        .panel-right {
+            color: #ffffff;
+            background:
+                linear-gradient(180deg, #122334, #0f172a 62%, #052e2a 100%);
+        }
+
+        .panel-right h2 {
+            font-size: clamp(2.2rem, 3vw, 2.9rem);
+            color: #d1fae5;
+            margin-bottom: 8px;
+        }
+
+        .contact-list {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            display: grid;
+            gap: 8px;
+        }
+
+        .contact-list li {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #e2f7ee;
+        }
+
+        .contact-list a {
+            color: #93f5c8;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .contact-list a:hover {
+            text-decoration: underline;
+        }
+
+        .delivery-box {
+            margin-top: 14px;
+            padding: 12px;
+            border-radius: 12px;
+            background: rgba(16, 185, 129, 0.16);
+            border: 1px solid rgba(167, 243, 208, 0.4);
+        }
+
+        .delivery-box h3 {
+            font-size: 1.45rem;
+            color: #86efac;
+            margin-bottom: 2px;
+        }
+
+        .qr-block {
+            margin-top: 16px;
+            display: grid;
+            grid-template-columns: 78px 1fr;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .qr-placeholder {
+            width: 78px;
+            height: 78px;
+            border-radius: 8px;
+            border: 2px dashed rgba(255, 255, 255, 0.55);
+            display: grid;
+            place-items: center;
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            text-align: center;
+            padding: 6px;
+            color: #dbfff3;
+        }
+
+        .cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 16px;
+            padding: 11px 16px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #34d399, #10b981);
+            color: #042317;
+            font-weight: 800;
+            text-decoration: none;
+            font-size: 0.88rem;
+            border: 1px solid rgba(209, 250, 229, 0.6);
+        }
+
+        .cta:hover {
+            filter: brightness(1.05);
+        }
+
+        .footnote {
+            margin-top: 12px;
+            font-size: 0.72rem;
+            opacity: 0.85;
+        }
+
+        @media (max-width: 1024px) {
+            .brochure {
+                aspect-ratio: auto;
+                grid-template-columns: 1fr;
+            }
+
+            .brochure::before,
+            .brochure::after {
+                display: none;
+            }
+
+            .panel {
+                min-height: 420px;
+            }
+        }
+
+        @media print {
+            @page {
+                size: A4 landscape;
+                margin: 0;
+            }
+
+            body {
+                background: #ffffff;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .page {
+                min-height: auto;
+                padding: 8mm;
+            }
+
+            .brochure {
+                width: 281mm;
+                height: 194mm;
+                max-width: none;
+                max-height: none;
+                aspect-ratio: auto;
+                border-radius: 0;
+                box-shadow: none;
+                page-break-inside: avoid;
+            }
+
+            .panel {
+                padding: 18px;
+            }
+
+            .headline {
+                margin-top: 8px;
+                margin-bottom: 8px;
+            }
+
+            .headline .line-1 {
+                font-size: 2.2rem;
+            }
+
+            .headline .line-2 {
+                font-size: 2.6rem;
+            }
+
+            .headline .line-3 {
+                font-size: 1.7rem;
+            }
+
+            .panel p,
+            .item strong,
+            .contact-list li,
+            .item .price,
+            .combo p,
+            .delivery-box p,
+            .qr-block p {
+                font-size: 0.83rem;
+            }
+
+            .panel h2 {
+                font-size: 2.25rem;
+            }
+
+            .combo h3,
+            .delivery-box h3 {
+                font-size: 1.28rem;
+            }
+
+            .menu {
+                gap: 9px;
+            }
+
+            .item {
+                padding: 9px 10px;
+            }
+
+            .combo,
+            .delivery-box,
+            .qr-block,
+            .cta {
+                margin-top: 10px;
+            }
+
+            .qr-placeholder {
+                width: 66px;
+                height: 66px;
+            }
+
+            .footnote {
+                font-size: 0.68rem;
+                margin-top: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="page">
+        <section class="brochure" aria-label="Folleto Michecol en tres paneles">
+            <article class="panel panel-left">
+                <div>
+                    <div class="brand-top">
+                        <img src="../logo.png" alt="Logo Michecol" class="brand-logo">
+                        <span class="brand-chip">Sabor barranquillero</span>
+                    </div>
+
+                    <div class="headline">
+                        <h1 class="line-1">Sabor</h1>
+                        <h1 class="line-2">MICHECOL</h1>
+                        <h1 class="line-3">en cada vaso</h1>
+                    </div>
+
+                    <div class="pitch">
+                        <p>Somos sabor autentico, tradicion y frescura. Cada Michecol se prepara al instante con receta de la casa y actitud.</p>
+                        <ul class="pill-list">
+                            <li>Hecha al instante</li>
+                            <li>Receta de la casa</li>
+                            <li>Escarchado especial</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <p class="footnote">#AmoLaMiche</p>
+            </article>
+
+            <article class="panel panel-mid">
+                <div>
+                    <h2>Menu estrella</h2>
+                    <p class="menu-note">Micheladas frias, equilibradas y listas para subir el parche.</p>
+
+                    <div class="menu" role="list" aria-label="Productos Michecol">
+                        <div class="item" role="listitem">
+                            <div>
+                                <strong>Michecol Clasica</strong>
+                                <span>Limon, sal y cerveza bien fria</span>
+                            </div>
+                            <span class="price">$5.000</span>
+                        </div>
+
+                        <div class="item" role="listitem">
+                            <div>
+                                <strong>Michecol Mango Biche</strong>
+                                <span>Chamoy, tajin y toque frutal</span>
+                            </div>
+                            <span class="price">$5.000</span>
+                        </div>
+
+                        <div class="item" role="listitem">
+                            <div>
+                                <strong>Michecol Fuego</strong>
+                                <span>Picante artesanal y especias</span>
+                            </div>
+                            <span class="price">$5.000</span>
+                        </div>
+                    </div>
+
+                    <div class="combo">
+                        <h3>Combo Parche</h3>
+                        <p>3 michecol + snack para compartir. Ideal para reuniones, eventos y previas.</p>
+                    </div>
+                </div>
+            </article>
+
+            <article class="panel panel-right">
+                <div>
+                    <h2>Pide hoy</h2>
+                    <ul class="contact-list">
+                        <li>WhatsApp: <a href="https://wa.me/573170677776" target="_blank" rel="noopener">+57 317 067 7776</a></li>
+                        <li>Email PQR: <a href="mailto:atencionalcliente@michecol.app">atencionalcliente@michecol.app</a></li>
+                        <li>Email sugerencias: <a href="mailto:sugerencias@michecol.app">sugerencias@michecol.app</a></li>
+                    </ul>
+
+                    <div class="delivery-box">
+                        <h3>Domicilios rapidos</h3>
+                        <p>Atendemos Barranquilla y zonas cercanas. Ideal para pedidos personales o eventos.</p>
+                    </div>
+
+                    <div class="qr-block">
+                        <div class="qr-placeholder">Tu QR<br>WhatsApp</div>
+                        <p>Escanea el QR o escribe por WhatsApp para pedir en minutos.</p>
+                    </div>
+                </div>
+
+                <div>
+                    <a class="cta" href="../index.html">Ver pagina oficial</a>
+                    <p class="footnote">Michecol 2026 | Calidad premium, frescura total.</p>
+                </div>
+            </article>
+        </section>
+    </main>
+</body>
+</html>
