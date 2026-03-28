@@ -1107,11 +1107,11 @@ img {
 
     .about-stage-content {
         max-width: 100%;
-        text-align: center;
+        text-align: left;
     }
 
     .about-stage-tags {
-        justify-content: center;
+        justify-content: flex-start;
     }
 }
 
