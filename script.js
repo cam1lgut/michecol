@@ -207,6 +207,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const orderForm = document.getElementById('order-form');
     const orderProductInput = document.getElementById('order-product');
     const orderSizeSelect = document.getElementById('order-size');
+    const orderDrinkSelect = document.getElementById('order-drink');
+    const orderToppingSelect = document.getElementById('order-topping');
     const orderTotal = document.getElementById('order-total');
     const orderPriceHidden = document.getElementById('order-price-hidden');
     const orderStatus = document.getElementById('order-status');
@@ -231,6 +233,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const openOrderModal = (productName) => {
         orderProductInput.value = productName;
         orderSizeSelect.value = 'pequeno';
+        if (orderDrinkSelect) {
+            orderDrinkSelect.value = 'ginger_canada_dry';
+        }
+        if (orderToppingSelect) {
+            orderToppingSelect.value = 'gomitas';
+        }
         updateOrderPrice();
         setStatus('');
         orderModal.classList.add('active');
@@ -275,12 +283,22 @@ document.addEventListener('DOMContentLoaded', () => {
             const payload = Object.fromEntries(formData.entries());
 
             const selectedSize = payload.tamano || 'pequeno';
+            const selectedDrink = String(payload.bebida || '').trim();
+            const selectedTopping = String(payload.topping || '').trim();
             const priceBySize = {
                 pequeno: 5000,
                 mediano: 6000,
                 grande: 7000
             };
             const normalizedPrice = priceBySize[selectedSize] || 5000;
+
+            const formatLabel = (value) => value
+                .replace(/_/g, ' ')
+                .replace(/\b\w/g, (letter) => letter.toUpperCase());
+
+            const baseNotes = String(payload.notas || '').trim();
+            const orderDetails = `Bebida: ${formatLabel(selectedDrink)} | Topping: ${formatLabel(selectedTopping)}`;
+            const normalizedNotes = baseNotes ? `${orderDetails} | Nota: ${baseNotes}` : orderDetails;
 
             const insertPayload = {
                 cliente_nombre: String(payload.cliente_nombre || '').trim(),
@@ -291,7 +309,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 precio: normalizedPrice,
                 metodo_pago: 'efectivo',
                 estado: 'pendiente',
-                notas: String(payload.notas || '').trim() || null
+                notas: normalizedNotes
             };
 
             try {
@@ -310,6 +328,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 setStatus('Pedido recibido con exito. Te contactaremos pronto.', 'success');
                 orderForm.reset();
                 orderSizeSelect.value = 'pequeno';
+                if (orderDrinkSelect) {
+                    orderDrinkSelect.value = 'ginger_canada_dry';
+                }
+                if (orderToppingSelect) {
+                    orderToppingSelect.value = 'gomitas';
+                }
                 updateOrderPrice();
 
                 setTimeout(() => {

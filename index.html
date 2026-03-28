@@ -76,52 +76,43 @@
                     <p class="section-desc">Elige tamaño, bebida y toppings para armar tu Michecol a tu gusto.</p>
                 </div>
                 
-                <div class="products-grid">
-                    <!-- Tamaños -->
-                    <div class="product-card animate-on-scroll slide-up" style="--delay: 0.1s">
+                <div class="products-grid single-product-grid">
+                    <div class="product-card product-card-featured animate-on-scroll slide-up" style="--delay: 0.1s">
                         <div class="product-img-box">
-                            <div class="placeholder-img"><i class="fas fa-ruler-combined"></i></div>
+                            <div class="placeholder-img"><i class="fas fa-beer-mug-empty"></i></div>
                         </div>
                         <div class="product-info">
-                            <h3 class="product-name">Tamaños</h3>
-                            <ul class="product-list">
-                                <li><span>Vaso pequeño</span><strong>$5.000</strong></li>
-                                <li><span>Mediano</span><strong>$6.000</strong></li>
-                                <li><span>Grande</span><strong>$7.000</strong></li>
-                            </ul>
-                            <button type="button" class="btn btn-outline open-order-modal" data-product="Michecol Personalizada">Pedir Ahora</button>
-                        </div>
-                    </div>
+                            <h3 class="product-name">Michecol Personalizada</h3>
+                            <p class="product-desc">Escoge tu tamaño, bebida y toppings para armarla a tu gusto.</p>
 
-                    <!-- Bebidas -->
-                    <div class="product-card animate-on-scroll slide-up" style="--delay: 0.2s">
-                        <div class="product-img-box">
-                            <div class="placeholder-img"><i class="fas fa-glass-water"></i></div>
-                        </div>
-                        <div class="product-info">
-                            <h3 class="product-name">Bebidas</h3>
-                            <ul class="product-list product-list-simple">
-                                <li>Ginger Canada Dry</li>
-                                <li>Soda</li>
-                                <li>Like</li>
-                                <li>Sprite</li>
-                            </ul>
-                            <button type="button" class="btn btn-outline open-order-modal" data-product="Michecol Personalizada">Pedir Ahora</button>
-                        </div>
-                    </div>
+                            <div class="product-option-group">
+                                <p class="product-option-title">Tamaños</p>
+                                <ul class="product-list">
+                                    <li><span>Vaso pequeño</span><strong>$5.000</strong></li>
+                                    <li><span>Mediano</span><strong>$6.000</strong></li>
+                                    <li><span>Grande</span><strong>$7.000</strong></li>
+                                </ul>
+                            </div>
 
-                    <!-- Toppings -->
-                    <div class="product-card animate-on-scroll slide-up" style="--delay: 0.3s">
-                        <div class="product-img-box">
-                            <div class="placeholder-img"><i class="fas fa-ice-cream"></i></div>
-                        </div>
-                        <div class="product-info">
-                            <h3 class="product-name">Toppings</h3>
-                            <ul class="product-list product-list-simple">
-                                <li>Gomitas</li>
-                                <li>Frutas</li>
-                                <li>Gomitas y frutas</li>
-                            </ul>
+                            <div class="product-option-group">
+                                <p class="product-option-title">Bebidas</p>
+                                <ul class="product-list product-list-simple">
+                                    <li>Ginger Canada Dry</li>
+                                    <li>Soda</li>
+                                    <li>Like</li>
+                                    <li>Sprite</li>
+                                </ul>
+                            </div>
+
+                            <div class="product-option-group">
+                                <p class="product-option-title">Toppings</p>
+                                <ul class="product-list product-list-simple">
+                                    <li>Gomitas</li>
+                                    <li>Frutas</li>
+                                    <li>Gomitas y frutas</li>
+                                </ul>
+                            </div>
+
                             <button type="button" class="btn btn-outline open-order-modal" data-product="Michecol Personalizada">Pedir Ahora</button>
                         </div>
                     </div>
@@ -273,6 +264,21 @@
                     <option value="pequeno" data-price="5000">Pequeño - $5.000 COP</option>
                     <option value="mediano" data-price="6000">Mediano - $6.000 COP</option>
                     <option value="grande" data-price="7000">Grande - $7.000 COP</option>
+                </select>
+
+                <label for="order-drink">Bebida</label>
+                <select id="order-drink" name="bebida" required>
+                    <option value="ginger_canada_dry">Ginger Canada Dry</option>
+                    <option value="soda">Soda</option>
+                    <option value="like">Like</option>
+                    <option value="sprite">Sprite</option>
+                </select>
+
+                <label for="order-topping">Topping</label>
+                <select id="order-topping" name="topping" required>
+                    <option value="gomitas">Gomitas</option>
+                    <option value="frutas">Frutas</option>
+                    <option value="gomitas_y_frutas">Gomitas y frutas</option>
                 </select>
 
                 <div class="order-price-row">

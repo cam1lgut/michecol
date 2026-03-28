@@ -490,6 +490,15 @@ img {
     gap: 2.5rem;
 }
 
+.single-product-grid {
+    grid-template-columns: minmax(320px, 860px);
+    justify-content: center;
+}
+
+.product-card-featured .product-img-box {
+    height: 220px;
+}
+
 .product-card {
     background: var(--color-white);
     border-radius: var(--radius-lg);
@@ -576,6 +585,17 @@ img {
 
 .product-list-simple li {
     justify-content: flex-start;
+}
+
+.product-option-group {
+    display: grid;
+    gap: 0.35rem;
+}
+
+.product-option-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-dark);
 }
 
 /* ==========================================================================
