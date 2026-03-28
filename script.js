@@ -207,6 +207,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const orderForm = document.getElementById('order-form');
     const orderProductInput = document.getElementById('order-product');
     const orderSizeSelect = document.getElementById('order-size');
+    const cupSizeSelector = document.getElementById('cup-size-selector');
+    const cupSizeCards = document.querySelectorAll('.cup-size-card');
     const orderDrinkSelect = document.getElementById('order-drink');
     const orderToppingSelect = document.getElementById('order-topping');
     const orderTotal = document.getElementById('order-total');
@@ -223,9 +225,20 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    const syncCupSizeSelection = (selectedSize) => {
+        cupSizeCards.forEach((card) => {
+            const isActive = card.dataset.size === selectedSize;
+            card.classList.toggle('active', isActive);
+            card.setAttribute('aria-checked', String(isActive));
+        });
+    };
+
     const updateOrderPrice = () => {
         const selectedOption = orderSizeSelect.options[orderSizeSelect.selectedIndex];
         const selectedPrice = Number(selectedOption?.dataset?.price || 5000);
+        const selectedSize = selectedOption?.value || 'pequeno';
+
+        syncCupSizeSelection(selectedSize);
         orderPriceHidden.value = String(selectedPrice);
         orderTotal.textContent = `$${currencyFormatter.format(selectedPrice)} COP`;
     };
@@ -259,6 +272,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 openOrderModal(productName);
             });
         });
+
+        if (cupSizeSelector) {
+            cupSizeSelector.addEventListener('click', (event) => {
+                const selectedCard = event.target.closest('.cup-size-card');
+                if (!selectedCard) {
+                    return;
+                }
+
+                const selectedSize = selectedCard.dataset.size;
+                if (!selectedSize || !orderSizeSelect) {
+                    return;
+                }
+
+                orderSizeSelect.value = selectedSize;
+                updateOrderPrice();
+            });
+        }
 
         orderSizeSelect.addEventListener('change', updateOrderPrice);
 

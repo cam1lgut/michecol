@@ -260,11 +260,29 @@
                 <input id="order-product" name="producto" type="text" readonly required>
 
                 <label for="order-size">Tamaño</label>
-                <select id="order-size" name="tamano" required>
+                <select id="order-size" class="order-size-native" name="tamano" required aria-label="Tamaño de vaso">
                     <option value="pequeno" data-price="5000">Pequeño - $5.000 COP</option>
                     <option value="mediano" data-price="6000">Mediano - $6.000 COP</option>
                     <option value="grande" data-price="7000">Grande - $7.000 COP</option>
                 </select>
+
+                <div class="cup-size-selector" id="cup-size-selector" role="radiogroup" aria-label="Elegir forma y tamaño de vaso">
+                    <button type="button" class="cup-size-card active" data-size="pequeno" data-price="5000" role="radio" aria-checked="true">
+                        <span class="cup-shape cup-shape-small" aria-hidden="true"></span>
+                        <span class="cup-size-label">Pequeño</span>
+                        <span class="cup-size-price">$5.000</span>
+                    </button>
+                    <button type="button" class="cup-size-card" data-size="mediano" data-price="6000" role="radio" aria-checked="false">
+                        <span class="cup-shape cup-shape-medium" aria-hidden="true"></span>
+                        <span class="cup-size-label">Mediano</span>
+                        <span class="cup-size-price">$6.000</span>
+                    </button>
+                    <button type="button" class="cup-size-card" data-size="grande" data-price="7000" role="radio" aria-checked="false">
+                        <span class="cup-shape cup-shape-large" aria-hidden="true"></span>
+                        <span class="cup-size-label">Grande</span>
+                        <span class="cup-size-price">$7.000</span>
+                    </button>
+                </div>
 
                 <label for="order-drink">Bebida</label>
                 <select id="order-drink" name="bebida" required>
