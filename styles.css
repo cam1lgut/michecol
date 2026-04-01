@@ -1557,16 +1557,19 @@ img {
 
 @media (min-width: 992px) {
     .product-card-featured .product-img-box {
-        height: 280px;
+        height: 320px;
     }
 
     .product-image {
         padding: 0;
-        transform: scale(1.55);
+        width: auto;
+        height: 94%;
+        max-width: 92%;
+        transform: none;
     }
 
     .product-card:hover .product-image {
-        transform: scale(1.62);
+        transform: none;
     }
 
     .pqr-float {
